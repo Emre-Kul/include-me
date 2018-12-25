@@ -1,8 +1,10 @@
-export default class TemplateEngine {
+class TemplateEngine {
 
     constructor(){
 
     }
 
-
+    public compile(){}
 }
+
+export default TemplateEngine;

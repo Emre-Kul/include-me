@@ -15,7 +15,11 @@ class FileLoader {
 
     }
 
-    public loadFile(): IFile {
+    public loadContent(){
+        
+    }
+
+    public getFile(): IFile {
         return this.file;
     }
 
