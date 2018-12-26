@@ -37,7 +37,8 @@ class App {
 }
 
 const app = new App('./example');
+const templateEngine = new TemplateEngine();
 
 app.loadFilesFromFolder(app.getFolderPath());
-
-TemplateEngine.replaceIncludes(app.getFiles());
+templateEngine.replaceIncludes(app.getFiles());
+console.log(app.getFiles());
