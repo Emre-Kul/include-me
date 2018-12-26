@@ -3,4 +3,5 @@ export interface IFile {
     extension: string;
     path: string;
     name: string;
+    [key: string]: string;
 }

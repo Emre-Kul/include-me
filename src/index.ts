@@ -1,40 +1,22 @@
-import * as fs from 'fs';
-import FileLoader from './file-loader';
 import {IFile} from './interfaces/IFile';
+import PageController from './page-controller';
 import TemplateEngine from './template-engine';
 
 class App {
-    private readonly rootFolderPath: string;
-    private readonly files: IFile[];
+    private pageController: PageController;
+    private templateEngine: TemplateEngine;
 
-    constructor(rootFolderPath: string) {
-        this.rootFolderPath = rootFolderPath;
-        this.files = [];
+    constructor(rootFolderPath: string, fileSelector: string, includeRegex: RegExp) {
+        this.pageController = new PageController(rootFolderPath);
+        this.templateEngine = new TemplateEngine(fileSelector, includeRegex);
     }
 
-    public loadFilesFromFolder(path: string = this.rootFolderPath) {
-        const files = fs.readdirSync(path);
-        for (const file of files) {
-            const fileStat = fs.statSync(`${path}/${file}`);
-            if (fileStat.isDirectory()) {
-               this.loadFilesFromFolder(`${path}/${file}`);
-            } else {
-                const fileLoader = new FileLoader(`${path}/${file}`);
-                fileLoader.loadContent();
-                this.files.push(fileLoader.getFile());
-            }
-        }
+    public run(): IFile[] {
+        this.pageController.loadPagesFromFolder();
+        this.templateEngine.replaceIncludes(this.pageController.getPages());
+        return this.pageController.getPages();
     }
-
-    public getFiles(): IFile[] {
-        return this.files;
-    }
-
 }
-
-const app = new App('./example');
-const templateEngine = new TemplateEngine();
-
-app.loadFilesFromFolder();
-templateEngine.replaceIncludes(app.getFiles());
-console.log(app.getFiles());
+export = {
+    IncludeMe : App,
+};

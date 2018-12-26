@@ -25,11 +25,13 @@ class FileLoader {
     }
 
     private getNameFromPath(path: string): string {
-        return '';
+        const splited = path.split('/');
+        return splited[splited.length - 1].split('.')[0];
     }
 
     private getExtensionFromPath(path: string): string {
-        return '';
+        const splited = path.split('/');
+        return splited[splited.length - 1].split('.')[1];
     }
 }
 

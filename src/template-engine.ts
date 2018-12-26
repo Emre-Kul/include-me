@@ -16,7 +16,7 @@ class TemplateEngine {
             do {
                 matches = this.includeRegex.exec(file.content);
                 if (matches) {
-                    const targetFile = files.find( (f) => f.path === matches[1] );
+                    const targetFile = files.find( (f) => f[this.fileSelector] === matches[1] );
                     file.content = file.content.replace(matches[0],
                                                         (targetFile) ? targetFile.content : '');
                 }
