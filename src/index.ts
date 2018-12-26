@@ -4,15 +4,15 @@ import {IFile} from './interfaces/IFile';
 import TemplateEngine from './template-engine';
 
 class App {
-    private readonly folderPath: string;
+    private readonly rootFolderPath: string;
     private readonly files: IFile[];
 
-    constructor(folderPath: string) {
-        this.folderPath = folderPath;
+    constructor(rootFolderPath: string) {
+        this.rootFolderPath = rootFolderPath;
         this.files = [];
     }
 
-    public loadFilesFromFolder(path: string) {
+    public loadFilesFromFolder(path: string = this.rootFolderPath) {
         const files = fs.readdirSync(path);
         for (const file of files) {
             const fileStat = fs.statSync(`${path}/${file}`);
@@ -26,10 +26,6 @@ class App {
         }
     }
 
-    public getFolderPath(): string {
-        return this.folderPath;
-    }
-
     public getFiles(): IFile[] {
         return this.files;
     }
@@ -39,6 +35,6 @@ class App {
 const app = new App('./example');
 const templateEngine = new TemplateEngine();
 
-app.loadFilesFromFolder(app.getFolderPath());
+app.loadFilesFromFolder();
 templateEngine.replaceIncludes(app.getFiles());
 console.log(app.getFiles());
