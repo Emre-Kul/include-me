@@ -1,43 +1,43 @@
-import FileLoader from "./file-loader";
-import {IFile} from "./interfaces/IFile";
 import * as fs from 'fs';
+import FileLoader from './file-loader';
+import {IFile} from './interfaces/IFile';
+import TemplateEngine from './template-engine';
 
 class App {
-    private folderPath: string;
-    private files: IFile[];
+    private readonly folderPath: string;
+    private readonly files: IFile[];
 
-    constructor(folderPath: string){
+    constructor(folderPath: string) {
         this.folderPath = folderPath;
         this.files = [];
     }
 
-    public loadFilesFromFolder(path: string){
-        fs.readdir(path, async (err: any, files: any) => {
-            for(const file of files){
-                const fileStat = await fs.lstat(path+ '/' + file);
-                if(await fileStat.isDirectory()){
-                   this.loadFilesFromFolder(path+ '/' + file);
-                }
-                else{
-                    const fileLoader = new FileLoader(path+ '/' + file);
-                    this.files.push(fileLoader.getFile());
-                    console.log(fileLoader.getFile());
-                }
+    public loadFilesFromFolder(path: string) {
+        const files = fs.readdirSync(path);
+        for (const file of files) {
+            const fileStat = fs.statSync(`${path}/${file}`);
+            if (fileStat.isDirectory()) {
+               this.loadFilesFromFolder(`${path}/${file}`);
+            } else {
+                const fileLoader = new FileLoader(`${path}/${file}`);
+                fileLoader.loadContent();
+                this.files.push(fileLoader.getFile());
             }
-
-        });
+        }
     }
 
-    public getFolderPath(): string{
+    public getFolderPath(): string {
         return this.folderPath;
     }
 
-    public getFiles(): IFile[]{
+    public getFiles(): IFile[] {
         return this.files;
     }
 
 }
 
 const app = new App('./example');
+
 app.loadFilesFromFolder(app.getFolderPath());
-console.log(app.getFiles());
+
+TemplateEngine.replaceIncludes(app.getFiles());

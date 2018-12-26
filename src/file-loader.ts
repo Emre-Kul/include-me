@@ -1,3 +1,4 @@
+import * as fs from 'fs';
 import {IFile} from './interfaces/IFile';
 
 class FileLoader {
@@ -15,8 +16,8 @@ class FileLoader {
 
     }
 
-    public loadContent(){
-        
+    public loadContent() {
+        this.file.content = fs.readFileSync(this.file.path, 'utf8');
     }
 
     public getFile(): IFile {
@@ -27,7 +28,7 @@ class FileLoader {
         return '';
     }
 
-    private getExtensionFromPath(path: string): string{
+    private getExtensionFromPath(path: string): string {
         return '';
     }
 }
