@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import {IFile} from './interfaces/IFile';
 
-class FileLoader {
+class FileManager {
 
     private readonly file: IFile;
 
@@ -35,4 +35,4 @@ class FileLoader {
     }
 }
 
-export default FileLoader;
+export default FileManager;

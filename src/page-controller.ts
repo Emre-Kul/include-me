@@ -1,7 +1,6 @@
 import * as fs from 'fs';
-import FileLoader from './file-loader';
+import FileManager from './file-manager';
 import {IFile} from './interfaces/IFile';
-import TemplateEngine from './template-engine';
 
 class PageController {
     private readonly rootFolderPath: string;
@@ -23,7 +22,7 @@ class PageController {
             if (fileStat.isDirectory()) {
                 this.loadPagesFromFolder(`${path}/${file}`);
             } else {
-                const fileLoader = new FileLoader(`${path}/${file}`);
+                const fileLoader = new FileManager(`${path}/${file}`);
                 fileLoader.loadContent();
                 this.pages.push(fileLoader.getFile());
             }

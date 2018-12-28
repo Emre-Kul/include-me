@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "nyc --check-coverage --lines=85 cross-env NODE_ENV=production mocha -r ts-node/register  --recursive 'test/*/*.spec.ts' 'test/**/*.spec.ts'",
     "build": "tsc",
     "watch": "tsc -w",
     "start:example": "node ./example/index.js"
@@ -13,9 +13,34 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/chai": "^4.1.7",
+    "@types/mocha": "^5.2.5",
     "@types/node": "^10.12.18",
+    "chai": "^4.2.0",
+    "cross-env": "^5.2.0",
+    "faker": "^4.1.0",
+    "mocha": "^5.2.0",
+    "nyc": "^13.1.0",
+    "ts-node": "^7.0.1",
     "tslint": "^5.12.0",
     "tslint-config-airbnb": "^5.11.1",
     "typescript": "^3.2.2"
+  },
+  "nyc": {
+    "extension": [
+      ".ts",
+      ".tsx"
+    ],
+    "exclude": [
+      "test/**",
+      "dist/**",
+      "coverage/**",
+      "example",
+      "docs"
+    ],
+    "reporter": [
+      "text"
+    ],
+    "all": true
   }
 }
