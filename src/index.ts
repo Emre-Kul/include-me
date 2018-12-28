@@ -11,11 +11,25 @@ class App {
         this.templateEngine = new TemplateEngine(fileSelector, includeRegex);
     }
 
-    public run(): IFile[] {
+    public load(): App {
         this.pageController.loadPagesFromFolder();
         this.templateEngine.replaceIncludes(this.pageController.getPages());
+        return this;
+    }
+
+    public asArray(): IFile[] {
         return this.pageController.getPages();
     }
+
+    public asObject(key: string = 'name'): any {
+        const filesObj: any = {};
+        const files = this.pageController.getPages();
+        files.forEach( (file) => {
+            filesObj[file[key]] =  file;
+        });
+        return filesObj;
+    }
+
 }
 export = {
     IncludeMe : App,

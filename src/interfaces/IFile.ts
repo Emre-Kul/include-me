@@ -5,3 +5,4 @@ export interface IFile {
     name: string;
     [key: string]: string;
 }
+
