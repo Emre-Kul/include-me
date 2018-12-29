@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import FileManager from './file-manager';
 import {IFile} from './interfaces/IFile';
+import {split} from "ts-node";
 
 class PageController {
     private readonly rootFolderPath: string;
@@ -22,9 +23,11 @@ class PageController {
             if (fileStat.isDirectory()) {
                 this.loadPagesFromFolder(`${path}/${file}`);
             } else {
-                const fileLoader = new FileManager(`${path}/${file}`);
-                fileLoader.loadContent();
-                this.pages.push(fileLoader.getFile());
+                const fileManager = new FileManager(`${path}/${file}`);
+                fileManager.loadContent();
+                const loadedFile = fileManager.getFile();
+                loadedFile.path = loadedFile.path.split(this.rootFolderPath)[1];
+                this.pages.push(loadedFile);
             }
         }
     }
