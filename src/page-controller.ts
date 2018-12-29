@@ -1,7 +1,6 @@
 import * as fs from 'fs';
 import FileManager from './file-manager';
 import {IFile} from './interfaces/IFile';
-import {split} from "ts-node";
 
 class PageController {
     private readonly rootFolderPath: string;
