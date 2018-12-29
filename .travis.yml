@@ -4,5 +4,5 @@ node_js:
 deploy:
   provider: npm
   email: "emrekul35@gmail.com"
-  api_key: "${NPM_TOKEN}"
+  api_key: "$NPM_TOKEN"
   skip_cleanup: true
