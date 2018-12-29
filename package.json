@@ -10,18 +10,25 @@
     "watch": "node_modules/.bin/tsc -w",
     "start:example": "node ./example/index.js"
   },
-  "keywords": ["include", "me", "templating"],
+  "keywords": [
+    "include",
+    "me",
+    "templating"
+  ],
   "author": "Emre Kul <emrekul35@gmail.com>",
-  "license": "GPLv3",
+  "license": "GPL-3.0",
   "devDependencies": {
     "@types/chai": "^4.1.7",
+    "@types/faker": "^4.1.4",
     "@types/mocha": "^5.2.5",
     "@types/node": "^10.12.18",
+    "@types/sinon": "^7.0.2",
     "chai": "^4.2.0",
     "cross-env": "^5.2.0",
     "faker": "^4.1.0",
     "mocha": "^5.2.0",
     "nyc": "^13.1.0",
+    "sinon": "^7.2.2",
     "ts-node": "^7.0.1",
     "tslint": "^5.12.0",
     "tslint-config-airbnb": "^5.11.1",
@@ -37,7 +44,8 @@
       "dist/**",
       "coverage/**",
       "example",
-      "docs"
+      "docs",
+      "src/interfaces"
     ],
     "reporter": [
       "text"
