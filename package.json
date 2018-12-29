@@ -2,7 +2,7 @@
   "name": "include-me",
   "version": "0.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./dist/index.js",
   "scripts": {
     "prepublish": "yarn build",
     "test": "nyc --check-coverage --lines=85 cross-env NODE_ENV=production mocha -r ts-node/register  --recursive 'test/*/*.spec.ts' 'test/**/*.spec.ts'",
@@ -10,9 +10,9 @@
     "watch": "node_modules/.bin/tsc -w",
     "start:example": "node ./example/index.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": ["include", "me", "templating"],
+  "author": "Emre Kul <emrekul35@gmail.com>",
+  "license": "GPLv3",
   "devDependencies": {
     "@types/chai": "^4.1.7",
     "@types/mocha": "^5.2.5",
