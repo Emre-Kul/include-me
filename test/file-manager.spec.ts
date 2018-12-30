@@ -5,12 +5,10 @@ import 'mocha';
 import sinon = require('sinon');
 import FileManager from '../src/file-manager';
 
-const stub = sinon.stub();
 
 describe('file-manager Spec',  () => {
 
     afterEach(() => {
-        // Restore the default sandbox here
         sinon.restore();
     });
 
@@ -33,7 +31,7 @@ describe('file-manager Spec',  () => {
         const fakeContent = faker.random.word();
         const fileManager = new FileManager('');
 
-        stub(fs, 'readFileSync', () => fakeContent);
+        sinon.stub(fs, 'readFileSync').returns(fakeContent);
 
         fileManager.loadContent();
 

@@ -1,4 +1,5 @@
 import {IFile} from './interfaces/IFile';
+import {Error} from "tslint/lib/error";
 
 class TemplateEngine {
 
@@ -17,8 +18,14 @@ class TemplateEngine {
                 matches = this.includeRegex.exec(file.content);
                 if (matches) {
                     const targetFile = files.find( (f) => f[this.fileSelector] === matches[1] );
-                    file.content = file.content.replace(matches[0],
-                                                        (targetFile) ? targetFile.content : '');
+
+                    if (!targetFile) {
+                        throw new Error(
+                            `"${matches[1]}" couldn't find, check out +
+                            '${file.name}' ('${file.path}')`);
+                    }
+
+                    file.content = file.content.replace(matches[0], targetFile.content );
                 }
             }
             while (matches);
