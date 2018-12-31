@@ -13,7 +13,7 @@ class App {
 
     public load(): App {
         this.pageController.loadPagesFromFolder();
-        this.templateEngine.replaceIncludes(this.pageController.getPages());
+        this.templateEngine.compile(this.pageController.getPages());
         return this;
     }
 

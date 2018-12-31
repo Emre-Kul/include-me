@@ -10,25 +10,42 @@ class TemplateEngine {
         this.includeRegex = includeRegex;
     }
 
-    public replaceIncludes(files: IFile[]) {
-        for (const file of files) {
-            let matches: any = [];
-            do {
-                matches = this.includeRegex.exec(file.content);
-                if (matches) {
-                    const targetFile = files.find( (f) => f[this.fileSelector] === matches[1] );
-
-                    if (!targetFile) {
-                        throw new Error(
-                            `"${matches[1]}" couldn't find, check out +
-                            '${file.name}' ('${file.path}')`);
-                    }
-
-                    file.content = file.content.replace(matches[0], targetFile.content );
-                }
+    public compile(files: IFile[]) {
+        let fileIndex = 0;
+        while (fileIndex < files.length) {
+            this.processIncludes(files, fileIndex);
+            if (!this.isProcessable(this.includeRegex, files[fileIndex].content)) {
+                fileIndex++;
             }
-            while (matches);
         }
+    }
+
+    private isProcessable(regex: RegExp, content: string) {
+        return regex.test(content);
+    }
+
+    private processIncludes(files: IFile[], fileIndex: number) {
+        const file = files[fileIndex];
+        const processedBefore: any = {};
+        let matches: any = [];
+        do {
+            matches = this.includeRegex.exec(file.content);
+            if (matches) {
+                const targetFile = files.find( (f) => f[this.fileSelector] === matches[1] );
+
+                if (!targetFile) {
+                    throw new Error(
+                        `"${matches[1]}" couldn't find, check out +
+                            '${file.name}' ('${file.path}')`);
+                }
+                if (processedBefore[targetFile.name]) {
+                    throw new Error(`Cycle problem at '${file.name}' file`);
+                }
+                processedBefore[targetFile.name] = true;
+                file.content = file.content.replace(matches[0], targetFile.content );
+            }
+        }
+        while (matches);
     }
 
 }
