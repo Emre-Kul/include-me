@@ -6,7 +6,7 @@ class App {
     private pageController: PageController;
     private templateEngine: TemplateEngine;
 
-    constructor(rootFolderPath: string, fileSelector: string, includeRegex: RegExp) {
+    constructor(rootFolderPath: string, fileSelector?: string, includeRegex?: RegExp) {
         this.pageController = new PageController(rootFolderPath);
         this.templateEngine = new TemplateEngine(fileSelector, includeRegex);
     }
