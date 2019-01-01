@@ -1,4 +1,8 @@
 # include-me
+
+[![Build Status](https://travis-ci.com/Emre-Kul/include-me.svg?branch=master)](https://travis-ci.com/Emre-Kul/include-me)
+![](https://img.shields.io/github/license/Emre-Kul/include-me.svg)
+
 include-me is basic templating project which import file content to selected file inside folder and its sub folders.
 
 ## Issues
@@ -9,8 +13,8 @@ include-me is basic templating project which import file content to selected fil
 * [ ] add error handle functionality (almost done)
 * [ ] write the all unit tests (almost done)
 * [ ] write documentation 
-* [ ] add badges(npm, license) 
-* [X] add licence file
+* [X] add badges(travis, license, npm in future) 
+* [X] add license file
 
 ## Authors
 * Emre Kul
