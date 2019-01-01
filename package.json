@@ -4,11 +4,13 @@
   "description": "",
   "main": "./dist/index.js",
   "scripts": {
-    "prepublish": "yarn build",
+    "prepublish": "yarn lint && yarn build",
     "test": "nyc --check-coverage --lines=85 cross-env NODE_ENV=production mocha -r ts-node/register  --recursive 'test/*/*.spec.ts' 'test/**/*.spec.ts'",
     "build": "node_modules/.bin/tsc",
     "watch": "node_modules/.bin/tsc -w",
-    "start:example": "node ./example/index.js"
+    "start:example": "node ./example/index.js",
+    "lint": "node_modules/.bin/tslint src/*.ts src/**/*.ts test/*.ts test/**/*.ts",
+    "lint:fix": "node_modules/.bin/tslint src/*.ts src/**/*.ts test/*.ts test/**/*.ts --fix"
   },
   "keywords": [
     "include",
