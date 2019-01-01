@@ -10,7 +10,7 @@ include-me is basic templating project which import file content to selected fil
 * [ ] write the all unit tests (almost done)
 * [ ] write documentation 
 * [ ] add badges(npm, license) 
-* [ ] add licence folder
+* [X] add licence file
 
 ## Authors
 * Emre Kul
