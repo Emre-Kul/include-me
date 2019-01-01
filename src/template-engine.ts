@@ -14,14 +14,10 @@ class TemplateEngine {
         let fileIndex = 0;
         while (fileIndex < files.length) {
             this.processIncludes(files, fileIndex);
-            if (!this.isProcessable(this.includeRegex, files[fileIndex].content)) {
+            if (!this.includeRegex.test(files[fileIndex].content)) {
                 fileIndex++;
             }
         }
-    }
-
-    private isProcessable(regex: RegExp, content: string) {
-        return regex.test(content);
     }
 
     private processIncludes(files: IFile[], fileIndex: number) {
