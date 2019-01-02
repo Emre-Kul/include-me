@@ -1,5 +1,4 @@
 import { IFile } from './interfaces/IFile';
-import { Error } from 'tslint/lib/error';
 
 class TemplateEngine {
 
