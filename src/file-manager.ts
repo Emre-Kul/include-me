@@ -9,11 +9,16 @@ class FileManager {
 
     this.file = {
       content: '',
-      extension: this.getExtensionFromPath(path),
-      name: this.getNameFromPath(path),
+      extension: '',
+      name: '',
       path,
     };
 
+  }
+
+  public init() {
+    this.file.extension = this.getExtensionFromPath(this.file.path);
+    this.file.name = this.getNameFromPath(this.file.path);
   }
 
   public loadContent() {
@@ -25,13 +30,13 @@ class FileManager {
   }
 
   private getNameFromPath(path: string): string {
-    const splited = path.split('/');
-    return splited[splited.length - 1].split('.')[0];
+    const pathPiece = path.split('/');
+    return pathPiece[pathPiece.length - 1].split('.')[0];
   }
 
   private getExtensionFromPath(path: string): string {
-    const splited = path.split('/');
-    return splited[splited.length - 1].split('.')[1];
+    const pathPiece = path.split('/');
+    return pathPiece[pathPiece.length - 1].split('.')[1];
   }
 }
 

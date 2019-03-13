@@ -2,6 +2,7 @@ import * as fs from 'fs';
 import FileManager from './file-manager';
 import { IFile } from './interfaces/IFile';
 
+
 class PageController {
   private readonly rootFolderPath: string;
   private readonly pages: IFile[];
@@ -15,6 +16,10 @@ class PageController {
     return this.pages;
   }
 
+  public getRootFolderPath(): string {
+    return this.rootFolderPath;
+  }
+
   public loadPagesFromFolder(path: string = this.rootFolderPath) {
     const files = fs.readdirSync(path);
     for (const file of files) {
@@ -23,6 +28,7 @@ class PageController {
         this.loadPagesFromFolder(`${path}/${file}`);
       } else {
         const fileManager = new FileManager(`${path}/${file}`);
+        fileManager.init();
         fileManager.loadContent();
         const loadedFile = fileManager.getFile();
         loadedFile.path = loadedFile.path.split(this.rootFolderPath)[1];

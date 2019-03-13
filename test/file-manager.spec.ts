@@ -12,13 +12,11 @@ describe('file-manager Spec',  () => {
   });
 
   it('should initiate correct file', () => {
-    const name = faker.random.word();
-    const ext = faker.random.word();
-    const path = `${faker.random.word()}/${name}.${ext}`;
+    const path = faker.random.word();
     const file = {
       content: '',
-      extension: ext,
-      name,
+      extension: '',
+      name: '',
       path,
     };
 
@@ -37,5 +35,15 @@ describe('file-manager Spec',  () => {
     expect(fileManager.getFile().content).to.eq(fakeContent);
 
   });
-    // TODO : Test extension and name functions
+
+  it('should init the name and extension of file', () => {
+    const name = faker.random.word();
+    const ext = faker.random.word();
+    const path = `${faker.random.word()}/${name}.${ext}`;
+    const fileManager = new FileManager(path);
+    fileManager.init();
+    const file = fileManager.getFile();
+    expect(file.name).to.eq(name);
+    expect(file.extension).to.eq(ext);
+  });
 });
